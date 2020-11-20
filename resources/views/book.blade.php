@@ -6,7 +6,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
     <h1>
-        Books
+        {{ ucfirst(request()->segment(1)) }}
         <small>Manage Books</small>
     </h1>
     <ol class="breadcrumb">
