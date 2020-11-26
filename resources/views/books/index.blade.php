@@ -21,10 +21,13 @@
         <!-- Default box -->
         <div class="row">
             <div class="col-xs-12">
+              <!-- Below included files generates Error Messages -->
+              @include('errors.error') 
               <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Books Listing</h3>
-    
+                  <a href="/books/create" class="btn btn-xs btn-primary">Add New</a>
+
                   <div class="box-tools">
                     <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
                       <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -44,15 +47,20 @@
                       <th>Description</th>
                       <th>Author</th>
                       <th>Availability</th>
+                      <th>Action</th>
                     </tr>
                     @php($i = 0)
                     @foreach($books as $book)
                         <tr>
-                            <td>{{ ++$i }}</td>
-                            <td>{{ $book->title }}</td>
-                            <td>{{ $book->description }}</td>
-                            <td>{{ $book->author }}</td>
-                            <td>{!! $book->availability == true ? "<span class='label label-success'>Available</span>" : "<span class='label label-danger'>Unavailable</span>" !!}</td>
+                          <td>{{ ++$i }}</td>
+                          <td>{{ $book->title }}</td>
+                          <td>{{ $book->description }}</td>
+                          <td>{{ $book->author }}</td>
+                          <td>{!! $book->availability == true ? "<span class='label label-success'>Available</span>" : "<span class='label label-danger'>Unavailable</span>" !!}</td>
+                          <td>
+                            <a href={{ "/books/$book->id/edit" }} class="btn btn-primary btn-sm">Edit</a>
+                            <a href="" class="btn btn-danger btn-sm">Delete</a>
+                          </td>
                         </tr>
                     @endforeach
                   </table>
