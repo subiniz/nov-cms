@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Book;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\BookRequest;
 
 class BookController extends Controller
 {
@@ -21,21 +22,20 @@ class BookController extends Controller
         return view('books.create');
     }
 
-    public function store(Request $request) {
-        $validator = Validator::make($request->all(),  [
-            'title' => 'required',
-            'description' => 'required',
-            'author' => 'required',
-            'published_date' => 'required',
-            'availability' => 'required'
-        ]);
+    public function store(BookRequest $request) {
+        // $validator = Validator::make($request->all(),  [
+        //     'title' => 'required',
+        //     'description' => 'required',
+        //     'author' => 'required',
+        //     'published_date' => 'required',
+        //     'availability' => 'required'
+        // ]);
 
-        if ($validator->fails()) {
-            return redirect('books/create')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-        // dd($request->all());
+        // if ($validator->fails()) {
+        //     return redirect('books/create')
+        //                 ->withErrors($validator)
+        //                 ->withInput();
+        // }
         $this->model->create($request->all()); //Saves the data in Database
         return redirect('/books')->withErrors(['alert-success' => 'Data successfully created.']);
     }
@@ -45,7 +45,21 @@ class BookController extends Controller
         return view('books.edit', $data);
     }
 
-    public function update() {
+    public function update(BookRequest $request, $id) {
+        $data = [
+            "title" => $request->title,
+            "description" => $request->description,
+            "author" => $request->author,
+            "edition" => $request->edition,
+            "published_date" => $request->published_date,
+            "availability" => $request->availability
+        ];
+        $this->model->where('id', $id)->update($data);
+        return redirect('/books')->withErrors(['alert-success' => 'Data successfully updated.']);
+    }
 
+    public function destroy($id) {
+        $this->model->where('id', $id)->delete(); // DELETE FROM books where id = 1
+        return redirect('/books')->withErrors(['alert-success' => 'Data successfully deleted.']);
     }
 }

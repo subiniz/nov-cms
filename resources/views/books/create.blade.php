@@ -20,6 +20,7 @@
         <div class="row">
             <!-- left column -->
             <div class="col-md-12">
+              @include('errors.error')
               <!-- general form elements -->
               <div class="box box-primary">
                 <div class="box-header with-border">
@@ -32,11 +33,11 @@
                   <div class="box-body">
                     <div class="form-group">
                       <label for="title">Title</label>
-                      <input type="text" name="title" class="form-control" id="title" placeholder="Enter title" required>
+                      <input type="text" name="title" class="form-control" id="title" placeholder="Enter title">
                     </div>
                     <div class="form-group">
                       <label for="description">Description</label>
-                      <textarea name="description" class="form-control" id="description" cols="30" rows="10" required></textarea>
+                      <textarea name="description" class="form-control" id="description" cols="30" rows="10"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="author">Author</label>

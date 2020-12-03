@@ -59,7 +59,13 @@
                           <td>{!! $book->availability == true ? "<span class='label label-success'>Available</span>" : "<span class='label label-danger'>Unavailable</span>" !!}</td>
                           <td>
                             <a href={{ "/books/$book->id/edit" }} class="btn btn-primary btn-sm">Edit</a>
-                            <a href="" class="btn btn-danger btn-sm">Delete</a>
+                            {{-- DELETE METHOD start --}}
+                            <form method="post" action="/books/{{ $book->id }}" class='form-delete'>
+                              @csrf
+                              @method('delete')
+                              <button class="btn btn-danger btn-sm submit-delete">Delete</button>
+                            </form>
+                            {{-- DELETE METHOD end --}}
                           </td>
                         </tr>
                     @endforeach
@@ -71,7 +77,44 @@
             </div>
           </div>
         <!-- /.box -->
-  
+
+        {{-- Delete Confirmation Modal Box start--}}
+        <div class="modal fade" id="modal-delete">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Delete Confirmation</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Are You Sure?</p>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="delete-submit">Ok</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        {{-- Delete Confirmation Modal Box end--}}
+
+
+        {{-- JQuery to control the modal box --}}
+        <script>
+          $(document).on('click', '.form-delete', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            $('#modal-delete').modal().on('click', '#delete-submit', function() {
+              form.submit();
+            });
+          })
+        </script>
+
       </section>
       <!-- /.content -->
 </div>

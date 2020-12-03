@@ -37,6 +37,8 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <!-- jQuery 3 -->
+  <script src={{ asset("js/jquery.min.js") }}></script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -50,8 +52,6 @@
     <!-- /.content-wrapper -->
   @include('includes.footer')
 </div>
-<!-- jQuery 3 -->
-<script src={{ asset("js/jquery.min.js") }}></script>
 <!-- jQuery UI 1.11.4 -->
 <script src={{ asset("js/jquery-ui.min.js") }}></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

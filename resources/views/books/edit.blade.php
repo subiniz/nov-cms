@@ -20,6 +20,7 @@
         <div class="row">
             <!-- left column -->
             <div class="col-md-12">
+              @include('errors.error')
               <!-- general form elements -->
               <div class="box box-primary">
                 <div class="box-header with-border">
