@@ -64,6 +64,7 @@
                     <div class="form-group">
                       <label for="image">Book Thumbnail</label>
                       <input type="file" name="image" id="image">
+                      <img src="{{ URL::asset('/images/books/' . $books->image) }}" alt="Books Thumbnail" height="100px">
     
                       {{-- <p class="help-block">Example block-level help text here.</p> --}}
                     </div>

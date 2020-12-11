@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Book;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\BookRequest;
+use App\Helper\Helper;
 
 class BookController extends Controller
 {
@@ -23,20 +24,20 @@ class BookController extends Controller
     }
 
     public function store(BookRequest $request) {
-        // $validator = Validator::make($request->all(),  [
-        //     'title' => 'required',
-        //     'description' => 'required',
-        //     'author' => 'required',
-        //     'published_date' => 'required',
-        //     'availability' => 'required'
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return redirect('books/create')
-        //                 ->withErrors($validator)
-        //                 ->withInput();
-        // }
-        $this->model->create($request->all()); //Saves the data in Database
+        $data = [
+            "title" => $request->title,
+            "description" => $request->description,
+            "author" => $request->author,
+            "edition" => $request->edition,
+            "published_date" => $request->published_date,
+            "availability" => $request->availability
+        ];
+        
+        if($request->image) {
+            $path = public_path() . '/images/books';
+            $data['image'] = Helper::uploadImage($request->image, $path);
+        }
+        $this->model->create($data); //Saves the data in Database
         return redirect('/books')->withErrors(['alert-success' => 'Data successfully created.']);
     }
 
@@ -54,6 +55,10 @@ class BookController extends Controller
             "published_date" => $request->published_date,
             "availability" => $request->availability
         ];
+        if($request->image) {
+            $path = public_path() . '/images/books';
+            $data['image'] = Helper::uploadImage($request->image, $path);
+        }
         $this->model->where('id', $id)->update($data);
         return redirect('/books')->withErrors(['alert-success' => 'Data successfully updated.']);
     }
